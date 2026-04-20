@@ -80,11 +80,29 @@
                     </div>
                     <div class="auth-form__group-content">
                         <div class="auth-form__input-text">
-                            <input type="password" name="password_confirmation" class="auth-form__input" id="password_confirmation"
-                                placeholder="例: coachtech1106">
+                            <input type="password" name="password_confirmation" class="auth-form__input"
+                                id="password_confirmation" placeholder="例: coachtech1106">
                         </div>
                         <div class="auth-form__error">
                             @error('password_confirmation')
+                                {{ $message }}
+                            @enderror
+                        </div>
+                    </div>
+                </div>
+                <div class="auth-form__group">
+                    <div class="auth-form__group-title">
+                        <label for="is_admin" class="auth-form__label-item">管理者にしますか</label>
+                    </div>
+                    <div class="auth-form__group-content">
+                        <div class="auth-form__input-text">
+                            <input type="radio" name="is_admin" value="0" id="is_admin"
+                                class="auth-form__input">一般
+                            <input type="radio" name="is_admin" value="1" id="is_admin"
+                                class="auth-form__input">管理者
+                        </div>
+                        <div class="auth-form__error">
+                            @error('is_admin')
                                 {{ $message }}
                             @enderror
                         </div>
