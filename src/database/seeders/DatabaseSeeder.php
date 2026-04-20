@@ -2,6 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\Attendance;
+use App\Models\AttendanceRequest;
+use App\Models\BreakTime;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,6 +17,33 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        User::factory()->create([
+            'login_id' => 1,
+            'name' => '管理者',
+            'email' => 'admin@example.com',
+            'is_admin' => true,
+        ]);
+
+        $users = User::factory()->count(5)->create();
+
+        foreach ($users as $user) {
+            $attendances = Attendance::factory()->count(10)->create([
+                'user_id' => $user->id,
+            ]);
+
+            // 10件の中からランダムに2件取り出す
+            foreach ($attendances->random(2) as $attendance) {
+                BreakTime::factory()->create([
+                    'attendance_id' => $attendance->id,
+                ]);
+            }
+
+            foreach ($attendances->random(1) as $attendance) {
+                AttendanceRequest::factory()->create([
+                    'attendance_id' => $attendance->id,
+                    'user_id' => $user->id,
+                ]);
+            }
+        }
     }
 }
