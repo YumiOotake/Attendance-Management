@@ -1,0 +1,185 @@
+/* ===========================
+   Layout
+=========================== */
+.attendance {
+    min-height: calc(100vh - 60px);
+    background: var(--color-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 16px;
+}
+
+.attendance__inner {
+    width: 100%;
+    max-width: 480px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+}
+
+/* ===========================
+   Clock
+=========================== */
+.attendance__clock {
+    text-align: center;
+}
+
+.attendance__clock-time {
+    font-family: var(--font-mono);
+    font-size: clamp(56px, 14vw, 88px);
+    color: var(--color-accent);
+    letter-spacing: 4px;
+    line-height: 1;
+    text-shadow: 0 0 24px rgba(79, 195, 247, 0.4);
+    margin: 0;
+}
+
+.attendance__clock-date {
+    font-family: var(--font-jp);
+    font-size: 16px;
+    color: var(--color-muted);
+    margin: 12px 0 0;
+    letter-spacing: 2px;
+}
+
+/* ===========================
+   Status Badge
+=========================== */
+.attendance__status {
+    display: flex;
+    justify-content: center;
+}
+
+.attendance__status-badge {
+    font-family: var(--font-jp);
+    font-size: 14px;
+    letter-spacing: 3px;
+    padding: 8px 24px;
+    border-radius: 999px;
+    border: 1px solid currentColor;
+}
+
+.attendance__status-badge--working {
+    color: var(--color-working);
+    background: rgba(67, 233, 123, 0.08);
+    border-color: rgba(67, 233, 123, 0.3);
+}
+
+.attendance__status-badge--break {
+    color: var(--color-break);
+    background: rgba(249, 202, 36, 0.08);
+    border-color: rgba(249, 202, 36, 0.3);
+}
+
+.attendance__status-badge--done {
+    color: var(--color-done);
+    background: rgba(107, 112, 128, 0.08);
+    border-color: rgba(107, 112, 128, 0.3);
+}
+
+.attendance__status-badge--none {
+    color: var(--color-muted);
+    background: rgba(42, 45, 62, 0.5);
+    border-color: var(--color-border);
+}
+
+/* ===========================
+   Action Buttons
+=========================== */
+.attendance__actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    width: 100%;
+}
+
+.attendance__form {
+    margin: 0;
+}
+
+.attendance__button {
+    width: 100%;
+    padding: 20px 0;
+    font-family: var(--font-jp);
+    font-size: 16px;
+    letter-spacing: 4px;
+    border: 1px solid;
+    border-radius: var(--radius);
+    cursor: pointer;
+    background: transparent;
+    transition: background var(--transition), box-shadow var(--transition), opacity var(--transition);
+}
+
+.attendance__button:disabled {
+    opacity: 0.25;
+    cursor: not-allowed;
+}
+
+/* 出勤 */
+.attendance__button--in {
+    color: var(--color-in);
+    border-color: rgba(67, 233, 123, 0.4);
+}
+
+.attendance__button--in:not(:disabled):hover {
+    background: rgba(67, 233, 123, 0.1);
+    box-shadow: 0 0 16px rgba(67, 233, 123, 0.2);
+}
+
+/* 退勤 */
+.attendance__button--out {
+    color: var(--color-out);
+    border-color: rgba(247, 121, 125, 0.4);
+}
+
+.attendance__button--out:not(:disabled):hover {
+    background: rgba(247, 121, 125, 0.1);
+    box-shadow: 0 0 16px rgba(247, 121, 125, 0.2);
+}
+
+/* 休憩入 */
+.attendance__button--break-start {
+    color: var(--color-break-start);
+    border-color: rgba(249, 202, 36, 0.4);
+}
+
+.attendance__button--break-start:not(:disabled):hover {
+    background: rgba(249, 202, 36, 0.1);
+    box-shadow: 0 0 16px rgba(249, 202, 36, 0.2);
+}
+
+/* 休憩戻 */
+.attendance__button--break-end {
+    color: var(--color-break-end);
+    border-color: rgba(162, 155, 254, 0.4);
+}
+
+.attendance__button--break-end:not(:disabled):hover {
+    background: rgba(162, 155, 254, 0.1);
+    box-shadow: 0 0 16px rgba(162, 155, 254, 0.2);
+}
+
+/* ===========================
+   Detail Link
+=========================== */
+.attendance__detail {
+    text-align: center;
+}
+
+.attendance__detail-link {
+    font-family: var(--font-jp);
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: var(--color-muted);
+    text-decoration: none;
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: 2px;
+    transition: color var(--transition), border-color var(--transition);
+}
+
+.attendance__detail-link:hover {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+}
