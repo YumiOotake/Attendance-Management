@@ -9,6 +9,9 @@
             <a href="{{ route('index') }}" class="section__button-requests">
                 申請一覧へ
             </a>
+            <a href="{{ route('admin.add') }}" class="section__button-requests">
+                user登録へ
+            </a>
         </div>
         <form class="search-form" action="{{ route('items.search') }}" method="get">
             <div class="search-form__content">

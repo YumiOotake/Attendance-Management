@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RegisterController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::middleware('auth')->group(function () {
+
 });
+
+Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
+    Route::get('users/create', [RegisterController::class, 'index'])->name('admin.add');
+    Route::post('users/create', [RegisterController::class, 'register'])->name('admin.register');
+});
+
+
+
