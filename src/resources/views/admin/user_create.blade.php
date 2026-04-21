@@ -8,7 +8,7 @@
             <div class="auth-form__heading">
                 <h1 class="auth-form__heading-title">User Create</h1>
             </div>
-            <form action="{{ route('user-create') }}" method="POST" class="auth-form" novalidate>
+            <form action="{{ route('admin.register') }}" method="POST" class="auth-form" novalidate>
                 @csrf
                 <div class="auth-form__group">
                     <div class="auth-form__group-title">
@@ -17,7 +17,7 @@
                     <div class="auth-form__group-content">
                         <div class="auth-form__input-text">
                             <input type="text" name="login_id" value="{{ old('login_id') }}" id="login_id"
-                                class="auth-form__input" placeholder="例: 1">
+                                class="auth-form__input" placeholder="例: 2">
                         </div>
                         <div class="auth-form__error">
                             @error('login_id')
@@ -90,7 +90,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="auth-form__group">
+                {{-- <div class="auth-form__group">
                     <div class="auth-form__group-title">
                         <label for="is_admin" class="auth-form__label-item">管理者にしますか</label>
                     </div>
@@ -107,7 +107,7 @@
                             @enderror
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 <div class="auth-form__button">
                     <button class="auth-form__button-submit">登録</button>
                 </div>

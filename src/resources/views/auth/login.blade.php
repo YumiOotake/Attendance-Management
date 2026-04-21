@@ -5,6 +5,11 @@
 @section('content')
     <div class="auth-form__content">
         <div class="auth-form__content-wrapper">
+            @if (session('error'))
+            <div class="alert alert-error">
+                {{ session('error') }}
+            </div>
+            @endif
             <div class="auth-form__heading">
                 <h1 class="auth-form__heading-title">Login</h1>
             </div>
