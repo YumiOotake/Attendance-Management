@@ -22,8 +22,8 @@ class CreateAttendanceRequestsTable extends Migration
             $table->time('requested_break_start')->nullable();
             $table->time('requested_break_end')->nullable();
             $table->integer('requested_type');
-            $table->string('reason');
-            $table->integer('status');
+            $table->string('requested_reason');
+            $table->integer('requested_status');
             $table->timestamps();
         });
     }

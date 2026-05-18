@@ -60,4 +60,24 @@ class AttendanceRequest extends Model
             default => '承認待ち',
         };
     }
+
+    public function clock_in_formatted()
+    {
+        return substr($this->requested_clock_in, 0, 5);
+    }
+
+    public function clock_out_formatted()
+    {
+        return substr($this->requested_clock_out, 0, 5);
+    }
+
+    public function break_start_formatted()
+    {
+        return substr($this->requested_break_start, 0, 5);
+    }
+
+    public function break_end_formatted()
+    {
+        return substr($this->requested_break_end, 0, 5);
+    }
 }

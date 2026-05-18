@@ -5,16 +5,23 @@
 @section('content')
     <div class="attendance">
         <div class="attendance__inner">
+            @if (session('success'))
+                <div class="attendance__result">
+                    {{ session('success') }}
+                </div>
+            @endif
             <div class="attendance__top">
-                <form class="search-form" action="{{ route('search') }}" method="get">
+                <div class="attendance__month">
+                    <p class="attendance__month-text">{{ request('month') }}月</p>
+                </div>
+                <form class="search-form" action="{{ route('attendance.detail') }}" method="get">
                     <div class="search-form__item">
                         <div class="search-form__select-wrapper">
-                            <select name="date" class="search-form__item-input search-form__select">
+                            <select name="month" class="search-form__item-input search-form__select">
                                 <option value="">月</option>
-                                @foreach ($attendances as $attendance)
-                                    <option value="{{ $category->id }}"
-                                        {{ request('category_id') == $category->id ? 'selected' : '' }}>
-                                        {{ $index + 1 }}. {{ $category->content }}
+                                @foreach ($months as $month)
+                                    <option value="{{ $month }}" {{ request('month') == $month ? 'selected' : '' }}>
+                                        {{ $month }}月
                                     </option>
                                 @endforeach
                             </select>
@@ -24,10 +31,13 @@
                         <button class="search-form__button--submit" type="submit">検索</button>
                     </div>
                 </form>
-                <div class="attendance-content__export">
+                {{-- <div class="attendance-content__export">
                     <a href="{{ route('export', request()->query()) }}"
                         class="attendance-content__export--button">エクスポート</a>
-                </div>
+                </div> --}}
+            </div>
+            <div class="attendance__back">
+                <a href="{{ route('attendance.index') }}" class="attendance__back-button">打刻ページへ戻る</a>
             </div>
             <div class="attendance__result">
                 <table class="attendance-table">
@@ -47,15 +57,24 @@
                             <tr class="attendance-table__row">
                                 <td class="attendance-table__item">
                                     <div class="attendance-table__request">
-                                        <a href="#modal-{{ $attendance->id }}" class="attendance-table__request-button">修正</a>
+                                        <a href="{{ route('attendance.requestForm', $attendance->id) }}"
+                                            class="attendance-table__request-button">修正</a>
                                     </div>
                                 </td>
-                                <td class="attendance-table__item">{{ $attendance->date }}</td>
-                                <td class="attendance-table__item">{{ $attendance->type }}</td>
-                                <td class="attendance-table__item">{{ $attendance->clock_in }}</td>
-                                <td class="attendance-table__item">{{ $attendance->clock_out }}</td>
-                                <td class="attendance-table__item">{{ $attendance->break_in }}</td>
-                                <td class="attendance-table__item">{{ $attendance->break_out }}</td>
+                                <td class="attendance-table__item">{{ $attendance->date->format('d') }}</td>
+                                <td class="attendance-table__item">{{ $attendance->type_label }}</td>
+                                <td class="attendance-table__item">{{ $attendance->clock_in_formatted() }}</td>
+                                <td class="attendance-table__item">{{ $attendance->clock_out_formatted() }}</td>
+                                <td class="attendance-table__item">
+                                    @foreach ($attendance->breakTimes as $breakTime)
+                                        <div>{{ $breakTime->break_start_formatted() }}</div>
+                                    @endforeach
+                                </td>
+                                <td class="attendance-table__item">
+                                    @foreach ($attendance->breakTimes as $breakTime)
+                                        <div>{{ $breakTime->break_end_formatted() }}</div>
+                                    @endforeach
+                                </td>
                             </tr>
                         @empty
                             <tr>

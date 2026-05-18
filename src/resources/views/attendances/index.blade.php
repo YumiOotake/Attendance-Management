@@ -7,6 +7,11 @@
 
     <div class="attendance">
         <div class="attendance__inner">
+            @if (auth()->id() === 1)
+                <div class="attendance__button">
+                    <a href="{{ route('admin.users.index') }}">管理者ページへ</a>
+                </div>
+            @endif
 
             {{-- 現在時刻 --}}
             <div class="attendance__clock">
@@ -16,8 +21,8 @@
 
             {{-- 現在のステータス --}}
             <div class="attendance__status">
-                <span class="attendance__status-badge attendance__status-badge--{{ $status ?? 'none' }}">
-                    @switch($status ?? 'none')
+                <span class="attendance__status-badge attendance__status-badge--{{ $attendance->status ?? 'none' }}">
+                    @switch($attendance->status ?? 'none')
                         @case('working')
                             出勤中
                         @break
@@ -38,42 +43,52 @@
 
             {{-- 打刻ボタン --}}
             <div class="attendance__actions">
-                <form action="{{ route('attendance.clockIn') }}" method="post" class="attendance__form">
+                <form action="{{ route('attendance.clock-in', $attendance) }}" method="post" class="attendance__form">
                     @csrf
+                    @method('PATCH');
                     <button type="submit" class="attendance__button attendance__button--in"
-                        {{ $status !== null && $status !== 'none' ? 'disabled' : '' }}>
+                        {{ $attendance->status !== null && $attendance->status !== 'none' ? 'disabled' : '' }}>
                         出勤
                     </button>
                 </form>
 
-                <form action="{{ route('attendance.clockOut') }}" method="post" class="attendance__form">
+                <form action="{{ route('attendance.clock-out', $attendance) }}" method="post" class="attendance__form">
                     @csrf
+                    @method('PATCH');
                     <button type="submit" class="attendance__button attendance__button--out"
-                        {{ $status !== 'working' ? 'disabled' : '' }}>
+                        {{ $attendance->status !== 'working' ? 'disabled' : '' }}>
                         退勤
                     </button>
                 </form>
 
-                <form action="{{ route('attendance.breakStart') }}" method="post" class="attendance__form">
+                <form action="{{ route('attendance.break-start', $attendance) }}" method="post" class="attendance__form">
                     @csrf
+                    @method('PATCH');
                     <button type="submit" class="attendance__button attendance__button--break-start"
-                        {{ $status !== 'working' ? 'disabled' : '' }}>
+                        {{ $attendance->status !== 'working' ? 'disabled' : '' }}>
                         休憩入
                     </button>
                 </form>
 
-                <form action="{{ route('attendance.breakEnd') }}" method="post" class="attendance__form">
+                <form action="{{ route('attendance.break-end', $attendance) }}" method="post" class="attendance__form">
                     @csrf
+                    @method('PATCH');
                     <button type="submit" class="attendance__button attendance__button--break-end"
-                        {{ $status !== 'break' ? 'disabled' : '' }}>
+                        {{ $attendance->status !== 'break' ? 'disabled' : '' }}>
                         休憩戻
                     </button>
                 </form>
             </div>
 
+            @if (session('success'))
+                <div class="attendance__result">
+                    {{ session('success') }}
+                </div>
+            @endif
+
             {{-- 詳細ページへ --}}
             <div class="attendance__detail">
-                <a href="{{ route('attendance.index') }}" class="attendance__detail-link">
+                <a href="{{ route('attendance.detail') }}" class="attendance__detail-link">
                     勤怠一覧を見る →
                 </a>
             </div>
@@ -103,5 +118,4 @@
         setInterval(updateClock, 1000);
     </script>
 
-@endsection
 @endsection
