@@ -16,7 +16,7 @@ class UserFactory extends Factory
     {
         return [
             //unique() を付けることで login_id 重複を防げます
-            'login_id' => $this->faker->unique()->numberBetween(2, 100),
+            'login_id' => $this->faker->unique()->numberBetween(3, 999),
             'name' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),

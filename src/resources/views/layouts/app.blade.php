@@ -20,7 +20,7 @@
     <header class="header">
         <div class="header__inner">
             <div class="header__logo">
-                <a href="{{ route('index') }}" class="header__logo-link">Attendance-Management</a>
+                <a href="{{ route('attendance.index') }}" class="header__logo-link">Attendance-Management</a>
             </div>
             <nav class="header__nav">
                 @guest

@@ -57,4 +57,15 @@ class Attendance extends Model
         if ($this->clock_in) return 'working';
         return 'none';
     }
+
+    public function clock_in_formatted()
+    {
+        return substr($this->clock_in, 0, 5);
+    }
+
+    public function clock_out_formatted()
+    {
+        return substr($this->clock_out, 0, 5);
+    }
+
 }
